@@ -31,6 +31,7 @@ def chunk_documents(documents):
         chunk.metadata["title"] = chunk.metadata.get("title", "")
         chunk.metadata["section"] = chunk.metadata.get("section", "")
 
+
     logger.info(f"Created {len(chunks)} chunks")
 
     # Log sample chunk for debugging

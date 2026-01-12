@@ -8,10 +8,6 @@ def test():
 
     docs = retriever.retrieve(
         query=query,
-        company="AAPL",
-        year=2023,
-        part=None,
-        item=None,
         k=5,
     )
     logger.info(f"Final documents returned:{len(docs)}")
