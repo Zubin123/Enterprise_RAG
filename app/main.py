@@ -6,6 +6,8 @@ from fastapi.staticfiles import StaticFiles
 from app.retrieval.retriever import Retriever
 from app.generation.llm import LLMGenerator
 from app.generation.context_builder import build_context
+import uvicorn
+import os
 
 app = FastAPI()
 retriever = Retriever()
@@ -33,4 +35,12 @@ async def ask_question(request: Request, question: str = Form(...)):
             "question": question,
             "answer": answer,
         },
+    )
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=port,
+        reload=False,
     )
