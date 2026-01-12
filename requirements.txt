@@ -3,6 +3,7 @@ uvicorn
 langchain
 langchain-community
 langchain-openai
+langchain-huggingface
 faiss-cpu
 sentence-transformers
 pydantic

@@ -9,13 +9,11 @@ def test():
     retriever = Retriever()
     llm = LLMGenerator()
 
-    question = "What are the main risk factors mentioned by Apple in 2023?"
+    question = "What risks does apple mention?"
 
     # ✅ Call retrieve() on the INSTANCE
     docs = retriever.retrieve(
         query=question,
-        company="AAPL",
-        year=2023,
         k=5,
     )
 
@@ -26,8 +24,7 @@ def test():
         question=question,
     )
 
-    logger.info("FINAL ANSWER:")
-    logger.info(answer)
+    logger.info(f"FINAL ANSWER: {answer}")
 
 
 if __name__ == "__main__":

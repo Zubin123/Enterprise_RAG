@@ -19,6 +19,10 @@ class LLMGenerator:
             question = question,
         )
 
+        logger.debug("===== CONTEXT SENT TO LLM =====")
+        logger.debug(context[:2000])
+        logger.debug("===== END CONTEXT =====")
+
         response = self.llm.invoke(
             [
                 {"role": "system","content":SYSTEM_PROMPT},
@@ -27,4 +31,7 @@ class LLMGenerator:
         )
 
         logger.info("LLM response generated")
-        return response.content
+        answer = response.content
+        logger.info(f"FINAL ANSWER: {answer}")
+        return answer
+

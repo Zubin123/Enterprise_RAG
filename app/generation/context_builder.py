@@ -1,8 +1,9 @@
 from app.core.logger import logger
 
+
 def build_context(docs):
     """
-    Convert retrieved documents into a clean context block.
+    Convert retrieved documents into a clean context block with citations.
     """
     logger.info(f"Building context from {len(docs)} documents")
 
@@ -10,13 +11,18 @@ def build_context(docs):
 
     for i, doc in enumerate(docs, 1):
         meta = doc.metadata
-        block = (
-            f"[Document {i}] "
-            f"(Company: {meta.get('company')}, "
-            f"Year: {meta.get('year')}, "
-            f"Page: {meta.get('page')})\n"
-            f"{doc.page_content}"
+
+        citation = (
+            f"[Source: {meta.get('company')} 10-K {meta.get('year')}, "
+            f"{meta.get('item')}, Page {meta.get('page')}]"
         )
+
+        block = (
+            f"[Document {i}]\n"
+            f"{doc.page_content}\n\n"
+            f"{citation}"
+        )
+
         context_blocks.append(block)
 
     context = "\n\n".join(context_blocks)
