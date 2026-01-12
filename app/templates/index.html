@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enterprise SEC RAG</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Enterprise SEC Filing Intelligence Engine</h1>
+
+    <form method="post" action="/ask">
+        <input type="text" name="question" placeholder="Ask about Apple or Microsoft 10-K Filing..." required>
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if question %}
+    <div class="result">
+        <h3>Question</h3>
+        <p>{{ question }}</p>
+
+        <h3>Answer</h3>
+        <p>{{ answer }}</p>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

@@ -11,3 +11,5 @@ python-dotenv
 loguru
 pypdf
 streamlit
+jinja2 
+python-multipart

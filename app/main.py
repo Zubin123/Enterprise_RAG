@@ -1,52 +1,36 @@
-from fastapi import FastAPI
-from app.core.logger import logger
-from pydantic import BaseModel
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+
 from app.retrieval.retriever import Retriever
-from app.generation.context_builder import build_context
 from app.generation.llm import LLMGenerator
+from app.generation.context_builder import build_context
 
-
-app = FastAPI(title="Enterprise RAG",description= "Research-grade SEC Filing Intelligence Engine",version="1.0.0")
-
+app = FastAPI()
 retriever = Retriever()
-generator = LLMGenerator()
+llm = LLMGenerator()
 
-#Request Schema
-class QuestionRequest(BaseModel):
-    question: str
-
-
-# -----------------------------
-# Response Schema
-# -----------------------------
-class AnswerResponse(BaseModel):
-    question: str
-    answer: str
+templates = Jinja2Templates(directory="app/templates")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
-# -----------------------------
-# API Endpoint
-# -----------------------------
-@app.post("/ask", response_model=AnswerResponse)
-def ask_question(request: QuestionRequest):
-    logger.info(f"Received query: {request.question}")
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
-    # Step 1: Retrieve documents (auto company, year, section)
-    docs = retriever.retrieve(
-        query=request.question,
-        k=5,
-    )
 
-    # Step 2: Build context
+@app.post("/ask", response_class=HTMLResponse)
+async def ask_question(request: Request, question: str = Form(...)):
+    docs = retriever.retrieve(query=question, k=5)
     context = build_context(docs)
+    answer = llm.generate(context, question)
 
-    # Step 3: Generate answer
-    answer = generator.generate(
-        context=context,
-        question=request.question
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "question": question,
+            "answer": answer,
+        },
     )
-
-    return AnswerResponse(
-        question=request.question,
-        answer=answer
-    ) 
