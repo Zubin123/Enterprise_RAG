@@ -4,7 +4,7 @@ Enterprise-grade Retrieval-Augmented Generation (RAG) system for querying SEC 10
 
 ---
 
-## 🔍 What This System Does
+##  What This System Does
 
 This is not a basic vector search demo. It is a full document intelligence pipeline that:
 
@@ -16,7 +16,7 @@ This is not a basic vector search demo. It is a full document intelligence pipel
 
 ---
 
-## 🧠 Core Capabilities
+##  Core Capabilities
 
 ### Intelligent Query Understanding
 - Auto company detection (AAPL / MSFT)
@@ -44,54 +44,7 @@ This is not a basic vector search demo. It is a full document intelligence pipel
 
 ---
 
-## 🏗 Architecture
-# SEC RAG Intelligence System
-
-Enterprise-grade Retrieval-Augmented Generation (RAG) system for querying SEC 10-K filings from Apple and Microsoft using natural language.
-
----
-
-## 🔍 What This System Does
-
-This is not a basic vector search demo. It is a full document intelligence pipeline that:
-
-- Automatically detects company and year from the query  
-- Infers the correct SEC Part and Item  
-- Retrieves the full section content  
-- Anchors answers to official SEC sections  
-- Prevents hallucinations by answering only from retrieved context  
-
----
-
-## 🧠 Core Capabilities
-
-### Intelligent Query Understanding
-- Auto company detection (AAPL / MSFT)
-- Auto year detection
-- Auto section inference (Item 1A, Item 7, etc.)
-- Works with vague or incomplete questions
-
-### SEC-Aware Document Parsing
-- Detects navigation & TOC pages
-- Extracts SEC Part & Item structure
-- Handles inconsistent PDF layouts (Apple vs Microsoft)
-- Tracks section hierarchy across pages
-
-### Enterprise Retrieval Pipeline
-- Semantic search using FAISS + embeddings
-- Metadata filtering (company, year, section)
-- Full section expansion
-- Section anchoring
-- Semantic re-ranking
-
-### Hallucination-Resistant Generation
-- LLM answers only from retrieved context
-- No external knowledge leakage
-- Automatic fallback logic
-
----
-
-## 🏗 Architecture
+##  Architecture
 
 User Query
 ↓
@@ -112,7 +65,7 @@ Grounded Answer
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Enterprise_RAG/
@@ -158,7 +111,7 @@ Enterprise_RAG/
 
 ---
 
-## 🚀 Setup Guide
+##  Setup Guide
 
 ### Prerequisites
 
@@ -266,7 +219,7 @@ After setup, you can test the system with queries like:
 
 ---
 
-## ⚙️ Key Optimizations
+##  Key Optimizations
 
 | Optimization | Benefit |
 |-------------|---------|
@@ -281,7 +234,7 @@ Metadata propagation | Perfect traceability |
 
 ---
 
-## 🎯 Use Cases
+##  Use Cases
 
 - Financial research  
 - Equity analysis  
@@ -291,7 +244,7 @@ Metadata propagation | Perfect traceability |
 - AI research agents  
 
 
-## 👨‍💻 Author
+##  Author
 
 Mohammed Zubin Essudeen
 AI/ML Engineer — Applied RAG & Document Intelligence 
