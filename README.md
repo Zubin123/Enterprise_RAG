@@ -4,6 +4,12 @@ Enterprise-grade Retrieval-Augmented Generation (RAG) system for querying SEC 10
 
 ---
 
+## Live Demo
+
+**Try it now**: [Enterprise RAG on Render](https://enterprise-rag-cz5t.onrender.com)
+
+---
+
 ##  What This System Does
 
 This is not a basic vector search demo. It is a full document intelligence pipeline that:
@@ -103,6 +109,8 @@ Enterprise_RAG/
 │       └── index.pkl            # FAISS index metadata
 ├── logs/                         # Application logs
 │   └── app.log                  # Main application log file
+├── Dockerfile                    # Docker container configuration
+├── .dockerignore                 # Docker build exclusions
 ├── README.md                     # Project documentation
 ├── requirements.txt              # Python dependencies
 ├── pyproject.toml               # Project metadata and dependencies
@@ -118,6 +126,7 @@ Enterprise_RAG/
 - **Python 3.11+** (required as per `pyproject.toml`)
 - **pip** or **uv** package manager
 - **OpenAI API Key** (for LLM generation)
+- **Docker** (optional, for containerized deployment)
 
 ### Installation Steps
 
@@ -202,6 +211,41 @@ Enterprise_RAG/
    http://localhost:8000
    ```
 
+### Docker Deployment
+
+#### Build and Run Locally
+
+1. **Build the Docker image**:
+   ```bash
+   docker build -t enterprise-rag .
+   ```
+
+2. **Run the container**:
+   ```bash
+   docker run -p 8000:8000 --env-file .env enterprise-rag
+   ```
+   
+   Or with volume mounting for data persistence:
+   ```bash
+   docker run -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data enterprise-rag
+   ```
+
+3. **Access the application**:
+   ```
+   http://localhost:8000
+   ```
+
+#### Deploy to Render
+
+1. Push your repository to GitHub
+2. Connect your GitHub repository to Render
+3. Set the following configuration in Render:
+   - **Build Command**: `pip install -r requirements.txt && python -m app.ingestion.run_ingestion`
+   - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port 8000`
+   - **Environment Variable**: Add `OPENAI_API_KEY` in Render dashboard
+
+4. Deploy and access at your Render URL
+
 ### Quick Start Example
 
 After setup, you can test the system with queries like:
@@ -216,6 +260,7 @@ After setup, you can test the system with queries like:
 - **OpenAI API errors**: Verify your API key is correctly set in the `.env` file
 - **Import errors**: Ensure all dependencies are installed and your virtual environment is activated
 - **Port already in use**: Change the port in `app/main.py` or use `--port` flag with uvicorn
+- **Docker build fails**: Ensure Docker is installed and running; check `requirements.txt` is in the root directory
 
 ---
 
@@ -247,4 +292,4 @@ Metadata propagation | Perfect traceability |
 ##  Author
 
 Mohammed Zubin Essudeen
-AI/ML Engineer — Applied RAG & Document Intelligence 
+AI/ML Engineer — Applied RAG & Document Intelligence
