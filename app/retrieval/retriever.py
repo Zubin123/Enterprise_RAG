@@ -55,9 +55,12 @@ class Retriever:
         # ---------------------------------------------------
         # Phase 2 — Semantic bootstrap
         # ---------------------------------------------------
-        semantic_hits = self.vectorstore.similarity_search(query, k=80)
-        logger.info(f"Initial semantic hits: {len(semantic_hits)}")
-
+        try:
+            semantic_hits = self.vectorstore.similarity_search(query, k=80)
+            logger.info(f"Initial semantic hits: {len(semantic_hits)}")
+        except Exception as e:
+            logger.error(f"Semantic search failed: {e}")
+            return []
         if not semantic_hits:
             return []
 
